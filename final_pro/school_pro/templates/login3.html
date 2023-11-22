@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        var subjectObject = { "Maths": {
+    "Maths1": ["1", "2", "3"],
+    "Maths2": ["1", "2", "3"],
+    "Maths3": ["1", "2", "3"]
+  },
+  "Physics": {
+    "Physics1": ["1", "2", "3"],
+    "Physics2": ["1", "2", "3"],
+    "Physics3": ["1", "2", "3"]
+  },
+  "Computer Science": {
+    "CS1": ["1", "2", "3"],
+    "CS2": ["1", "2", "3"],
+    "CS3": ["1", "2", "3"]
+  },
+  "History": {
+    "History1": ["1", "2", "3"],
+    "History2": ["1", "2", "3"],
+    "History3": ["1", "2", "3"]
+  },
+  "Commerce": {
+    "Commerce1": ["1", "2", "3"],
+    "Commerce2": ["1", "2", "3"],
+    "Commerce3": ["1", "2", "3"]
+  }
+
+}
+
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+
+}
+    </script>
+</head>
+<body style="background-color:aqua;">
+
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
+
+
+<form method="post">
+    {% csrf_token %}
+    <!--{{form.as_p}}-->
+    <table style="text-align: center;bordere: 1px solid black;" cellpadding="10px">
+        <tr>
+            <caption><b>Form</b></caption>
+        </tr>
+        <tr><td></td></tr>
+        <tr>
+            <th>Name:</th>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <th>DOB:</th>
+            <td><input type="date" name="date"></td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td><input type="number" name="age"></td>
+        </tr>
+        <tr>
+            <th>Gender:</th>
+            <td><input type="radio" name="gender" value="male">Male
+                <input type="radio" name="gender" value="female">Female</td>
+        </tr>
+        <tr>
+            <th>Phone number:</th>
+            <td><input type="number" name="phone"></td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td><input type="email" name="email"></td>
+        </tr>
+        <tr>
+            <th>Address:</th>
+            <td><textarea name="address" rows="2"></textarea></td>
+        </tr>
+        <tr>
+            <th>Department:</th>
+            <td><select id="subject" name="subject">
+                <option value="" selected="selected">Please Select</option>
+                </select>
+            </td>
+        </tr>
+         <tr>
+            <th>Course:</th>
+            <td><select id="topic" name="topic">
+                <option value="" selected="selected">Please Select</option>
+            </select></td></tr>
+
+
+        <tr>
+            <th>Purpose:</th>
+            <td>
+                <select id="purpose" name="purpose">
+                    <option value="enquiry">Enquiry</option>
+                    <option value="place order">Place order</option>
+                    <option value="return">Return</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Material:</th>
+            <td><input type="checkbox" id="1" value="pen" name="material">Pen
+                <input type="checkbox" id="2" value="pencil" name="material">Pencil
+                <input type="checkbox" id="3" value="book" name="material">Book
+                <input type="checkbox" id="4" value="paper" name="material">Paper
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit"></td>
+            <td><button type="button"><a href="{%url 'demo' %}">Logout</a></button> </td>
+        </tr>
+    </table>
+</form>
+{% for msg in messages %}
+<h2>{{msg}}</h2>
+{% endfor %}
+
+</body>
+</html>
